@@ -5,7 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "node_modules/.bin/netlify-lambda serve src",
+    "build": "netlify deploy --prod",
+    "tart": "nodemon src/server.js",
     "dev": "nodemon -r dotenv/config -e js src/server.js"
   },
   "author": "Helena A. Nel",
@@ -23,10 +25,14 @@
     "http-errors": "^2.0.0",
     "mongodb": "^6.1.0",
     "mongoose": "^7.5.3",
+    "netlify-lambda": "^2.0.16",
     "nodemailer": "^6.9.5",
     "nodemon": "^3.0.1",
     "serverless-http": "^3.2.0",
     "slugify": "^1.6.6",
     "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^16.5.1"
   }
 }

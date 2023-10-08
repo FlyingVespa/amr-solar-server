@@ -5,18 +5,18 @@ import listEndpoints from "express-list-endpoints"; // to see endpoints in conso
 // import nodemailer from "nodemailer"; // needed for server email
 import dotenv from "dotenv"; // keep secrets secret
 import serverless from "serverless-http";
-import corsConfig from "./settings/cors.js"; // connecting to servers need
+import corsConfig from "../settings/cors.js"; // connecting to servers need
 import { engine } from "express-handlebars"; // generate html  template serverside
 import path from "path"; // file directorsi
 import { fileURLToPath } from "url"; // file directories
-import emailRouter from "./routers/email.router.js";
+import emailRouter from "../routers/email.router.js";
 import {
   unAuthorizedHandler,
   forbiddenErrHandler,
   serverErrHandler,
   badReqErrHandler,
   notFoundErrHandler,
-} from "./errorHandlers.js";
+} from "../errorHandlers.js";
 
 dotenv.config();
 const { PORT } = process.env;
@@ -46,8 +46,8 @@ server.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 //! **************** END POINTS ********************** //
 
-server.use("/", emailRouter);
+server.use("/.netlify/functions/api", emailRouter);
 
 console.table(listEndpoints(server));
-
-export const handler = serverless(server);
+module.exports = server;
+module.exports.handler = serverless(server);
