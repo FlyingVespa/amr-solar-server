@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "backend amr-solar",
   "main": "server.js",
-  "type": "module",
   "scripts": {
-    "start": "node_modules/.bin/netlify-lambda serve src",
     "build": "netlify deploy --prod",
-    "tart": "nodemon src/server.js",
+    "start": "nodemon src/server.js",
     "dev": "nodemon -r dotenv/config -e js src/server.js"
   },
   "author": "Helena A. Nel",

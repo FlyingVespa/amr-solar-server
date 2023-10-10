@@ -1,22 +1,13 @@
-import express from "express";
-import cors from "cors"; //security feature prevent malicious websites from making unauthorized requests to other websites on behalf of the user.
-// import mongoose from "mongoose"; // needed for backend storage
-import listEndpoints from "express-list-endpoints"; // to see endpoints in console
-// import nodemailer from "nodemailer"; // needed for server email
-import dotenv from "dotenv"; // keep secrets secret
-import serverLess from "serverless-http";
-import corsConfig from "../settings/cors.js"; // connecting to servers need
-import { engine } from "express-handlebars"; // generate html  template serverside
-import path from "path"; // file directorsi
-import { fileURLToPath } from "url"; // file directories
-import emailRouter from "../routers/email.router.js";
-import {
-  unAuthorizedHandler,
-  forbiddenErrHandler,
-  serverErrHandler,
-  badReqErrHandler,
-  notFoundErrHandler,
-} from "../errorHandlers.js";
+const express = require("express");
+const cors = require("cors");
+const listEndpoints = require("express-list-endpoints");
+
+const dotenv = require("dotenv");
+const serverLess = require("serverless-http");
+
+const corsConfig = require("../settings/cors.js"); // connecting to servers need
+
+const emailRouter = require("../routers/email.router.js");
 
 dotenv.config();
 const { PORT } = process.env;
@@ -26,11 +17,11 @@ const server = express();
 
 const port = PORT || 3333;
 
-server.listen(port, async () => {
-  try {
-    await console.log(` 🚀🚀🚀 Server is awake and listening on port :${port} - Time to make some magic happen!`);
-  } catch (error) {}
-});
+// server.listen(port, async () => {
+//   try {
+//     await console.log(` 🚀🚀🚀 Server is awake and listening on port :${port} - Time to make some magic happen!`);
+//   } catch (error) {}
+// });
 
 server.on("error", (error) =>
   console.log(`❌❌❌ Server Error: Gremlins have infested our code. Time to call an exterminator! : ${error}`)
@@ -46,8 +37,21 @@ server.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 //! **************** END POINTS ********************** //
 
-server.use("/.netlify/functions/server", emailRouter);
+server.use("/", emailRouter);
 
 console.table(listEndpoints(server));
-module.exports = server;
+// ! **************** SECRETS ENV
+
+exports.handler = async () => {
+  const sMTP_PASS = process.env.SMTP_PASS;
+  const sMTP_EMAIL = process.env.SMTP_EMAIL;
+  const sMTP_HOST = process.env.SMTP_HOST;
+  const tO_EMAIL = process.env.TO_EMAIL;
+  return {
+    statusCode: 200,
+    body: `hello world! I have a ${mySecret}`,
+  };
+};
+
+// module.exports = server;
 module.exports.handler = serverLess(server);

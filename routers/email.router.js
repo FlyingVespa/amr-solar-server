@@ -1,11 +1,9 @@
-import express from "express";
-import dotenv from "dotenv";
 // import { loginMiddleware } from "../middlewares/login.middleware.js";
 // import * as Controllers from "../controllers/clients.control.js";
 // import { usersImgParser } from "../settings/cloudinary.js";
-import * as Controllers from "../controllers/email.control.js";
-import { log } from "console";
-import nodemailer from "nodemailer"; // needed for server email
+// import * as Controllers from "../controllers/email.control.js";
+const express = require("express");
+const nodemailer = require("nodemailer"); // needed for server email
 
 const { SMTP_EMAIL, TO_EMAIL, SMTP_HOST, SMTP_PASS } = process.env;
 
@@ -75,4 +73,4 @@ emailRouter.post("/send-email", async (req, res) => {
   }
 });
 
-export default emailRouter;
+module.exports = emailRouter;

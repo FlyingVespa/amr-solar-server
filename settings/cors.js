@@ -1,8 +1,7 @@
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
 
 const trustOrigins = "https://www.amrsolar.hedri.dev";
-
 const corsConfig = {
   origin: function (origin, callback) {
     if (!origin || trustOrigins.includes(origin)) {
@@ -13,5 +12,3 @@ const corsConfig = {
   },
   credentials: true,
 };
-
-export default corsConfig;
