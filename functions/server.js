@@ -4,7 +4,7 @@ import cors from "cors"; //security feature prevent malicious websites from maki
 import listEndpoints from "express-list-endpoints"; // to see endpoints in console
 // import nodemailer from "nodemailer"; // needed for server email
 import dotenv from "dotenv"; // keep secrets secret
-import serverless from "serverless-http";
+import serverLess from "serverless-http";
 import corsConfig from "../settings/cors.js"; // connecting to servers need
 import { engine } from "express-handlebars"; // generate html  template serverside
 import path from "path"; // file directorsi
@@ -46,8 +46,8 @@ server.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 //! **************** END POINTS ********************** //
 
-server.use("/.netlify/functions/api", emailRouter);
+server.use("/.netlify/functions/server", emailRouter);
 
 console.table(listEndpoints(server));
 module.exports = server;
-module.exports.handler = serverless(server);
+module.exports.handler = serverLess(server);
