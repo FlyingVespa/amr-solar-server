@@ -14,7 +14,8 @@ const { PORT } = process.env;
 const server = express();
 
 //! **************** CONNECT SERVER ********************** //
-
+const greetPerson = process.env.GREETING;
+console.log(`Say hello: ${greetPerson}`);
 const port = PORT || 3333;
 
 // server.listen(port, async () => {

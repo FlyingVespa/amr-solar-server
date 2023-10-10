@@ -9,7 +9,12 @@ const { SMTP_EMAIL, TO_EMAIL, SMTP_HOST, SMTP_PASS } = process.env;
 
 const emailRouter = express.Router();
 emailRouter.get("/", (req, res) => {
+  res.status(200);
   res.send("App is running..");
+});
+emailRouter.get("/test", (req, res) => {
+  res.status(200);
+  res.send(`read this : ${process.env.PORT} is it vissble?`);
 });
 
 emailRouter.post("/send-email", async (req, res) => {
